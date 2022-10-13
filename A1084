@@ -1,0 +1,33 @@
+//复习重点看注释  能快速重写一遍是最好的
+
+#include<cstdio>  //fget的头文件
+#include<cstring> //srelen的头文件
+
+int main (){
+   char a[100],b[100];
+   fgets(a,82,stdin);  //小于82，23测试点为0分.原因如下
+   fgets(b,82,stdin);
+    int a1=strlen(a);
+    int b1=strlen(b);
+    bool hash[200]={false};
+    int i,j;  //提前定义，因为for循环后的if句还要使用
+    
+  for(i=0;i<a1;i++){
+    if(a[i]>='a'&&a[i]<='z'){a[i]=a[i]-'a'+'A';}    //记得里面的句子还需要分号的
+       for(j=0;j<b1;j++) {
+        if(b[j]>='a'&&b[j]<='z'){b[j]=b[j]-'a'+'A';}
+        if(a[i]==b[j])break;
+        }
+      if(j==b1&&hash[a[i]]==false){   //不是j==b1-1. 因为要让j循环比较完，才需要进一步判断是否已经输出。
+       printf("%c",a[i]);
+       hash[a[i]]=true;
+       }
+   }
+ 
+ return 0;
+ }
+
+//因为gsts函数不安全，现代c++编译器删除了，网络上的gets_s有在VS中才能使用。推荐使用fgets。
+//：多出来的两个，一个保存文件本身的'\n'换行，一个保存字符串本身的结束标识'\0'
+
+/*编译器警告：数组作为布尔数组的下标，潜在风险是：？？  */
